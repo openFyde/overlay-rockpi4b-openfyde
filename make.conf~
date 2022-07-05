@@ -1,0 +1,10 @@
+y#CHROMEOS_KERNEL_CONFIG="/mnt/host/source/src/overlays/overlay-radxa-keyz/kconfig/fydeos-r96-4_4-def"
+#CHROMEOS_KERNEL_CONFIG="/mnt/host/source/src/overlays/overlay-radxa-keyz/kconfig/fydeos-r89-4_4-def"
+#CHROMEOS_KERNEL_CONFIG="/mnt/host/source/src/overlays/overlay-radxa-keyz/kconfig/pi-man"
+CHROMEOS_KERNEL_CONFIG="/mnt/host/source/src/overlays/overlay-radxa-keyz/kconfig/pi4-def"
+
+USE="${USE} cheets crosvm-gpu virtio_gpu"
+USE="${USE} -android-container-nyc android-container-pi arc_rk3399 arc_preinstall_apk arc_fydeos_service arc_remove_gms"
+USE="${USE} fydeos_store fixcgroup fixcgroup-memory"
+USE="${USE} kernel-4_4 -kernel-5_4 -direncription_allow_v2 esdfs"
+TTY_CONSOLE="ttyS2"

@@ -1,0 +1,94 @@
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index d9318ac8..c91dcfe3 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -162,7 +162,7 @@ extern unsigned int kobjsize(const void *objp);
+ #define VM_NORESERVE	0x00200000	/* should the VM suppress accounting */
+ #define VM_HUGETLB	0x00400000	/* Huge TLB Page VM */
+ #define VM_ARCH_1	0x01000000	/* Architecture-specific flag */
+-#define VM_ARCH_2	0x02000000
++#define VM_WIPEONFORK 0x02000000
+ #define VM_DONTDUMP	0x04000000	/* Do not include in the core dump */
+ 
+ #ifdef CONFIG_MEM_SOFT_DIRTY
+@@ -192,7 +192,7 @@ extern unsigned int kobjsize(const void *objp);
+ 
+ #if defined(CONFIG_X86)
+ /* MPX specific bounds table or bounds directory */
+-# define VM_MPX		VM_ARCH_2
++# define VM_MPX		VM_WIPEONFORK
+ #endif
+ 
+ #ifndef VM_GROWSUP
+diff --git a/include/uapi/asm-generic/mman-common.h b/include/uapi/asm-generic/mman-common.h
+index a74dd84b..943d6350 100644
+--- a/include/uapi/asm-generic/mman-common.h
++++ b/include/uapi/asm-generic/mman-common.h
+@@ -56,6 +56,8 @@
+ #define MADV_DONTDUMP   16		/* Explicity exclude from the core dump,
+ 					   overrides the coredump filter bits */
+ #define MADV_DODUMP	17		/* Clear the MADV_DONTDUMP flag */
++#define MADV_WIPEONFORK 18    /* Zero memory on fork, child only */
++#define MADV_KEEPONFORK 19    /* Undo MADV_WIPEONFORK */
+ 
+ /* compatibility flags */
+ #define MAP_FILE	0
+diff --git a/kernel/fork.c b/kernel/fork.c
+index bad5a438..70c15793 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -468,7 +468,12 @@ static int dup_mmap(struct mm_struct *mm, struct mm_struct *oldmm)
+ 		if (retval)
+ 			goto fail_nomem_policy;
+ 		tmp->vm_mm = mm;
+-		if (anon_vma_fork(tmp, mpnt))
++    if (tmp->vm_flags & VM_WIPEONFORK) {
++			/* VM_WIPEONFORK gets a clean slate in the child. */
++			tmp->anon_vma = NULL;
++			if (anon_vma_prepare(tmp))
++				goto fail_nomem_anon_vma_fork;
++		} else if (anon_vma_fork(tmp, mpnt))
+ 			goto fail_nomem_anon_vma_fork;
+ 		tmp->vm_flags &=
+ 			~(VM_LOCKED|VM_LOCKONFAULT|VM_UFFD_MISSING|VM_UFFD_WP);
+@@ -514,7 +519,8 @@ static int dup_mmap(struct mm_struct *mm, struct mm_struct *oldmm)
+ 		rb_parent = &tmp->vm_rb;
+ 
+ 		mm->map_count++;
+-		retval = copy_page_range(mm, oldmm, mpnt);
++    if (!(tmp->vm_flags & VM_WIPEONFORK))
++			retval = copy_page_range(mm, oldmm, mpnt);
+ 
+ 		if (tmp->vm_ops && tmp->vm_ops->open)
+ 			tmp->vm_ops->open(tmp);
+diff --git a/mm/madvise.c b/mm/madvise.c
+index d1d09bdf..2133c952 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -72,6 +72,17 @@ static long madvise_behavior(struct vm_area_struct *vma,
+ 		}
+ 		new_flags &= ~VM_DONTCOPY;
+ 		break;
++  case MADV_WIPEONFORK:
++		/* MADV_WIPEONFORK is only supported on anonymous memory. */
++		if (vma->vm_file || vma->vm_flags & VM_SHARED) {
++			error = -EINVAL;
++			goto out;
++		}
++		new_flags |= VM_WIPEONFORK;
++		break;
++	case MADV_KEEPONFORK:
++		new_flags &= ~VM_WIPEONFORK;
++		break;
+ 	case MADV_DONTDUMP:
+ 		new_flags |= VM_DONTDUMP;
+ 		break;
+@@ -406,6 +417,8 @@ madvise_behavior_valid(int behavior)
+ #endif
+ 	case MADV_DONTDUMP:
+ 	case MADV_DODUMP:
++  case MADV_WIPEONFORK:
++	case MADV_KEEPONFORK:
+ 		return true;
+ 
+ 	default:

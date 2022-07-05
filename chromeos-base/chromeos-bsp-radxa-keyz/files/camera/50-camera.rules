@@ -1,0 +1,3 @@
+# Add a symbolic link for internal camera so the container can exclude external
+# camera if needed.
+SUBSYSTEM=="video4linux", ATTRS{idVendor}=="0c45", ATTRS{idProduct}=="6321", SYMLINK+="camera-internal0"

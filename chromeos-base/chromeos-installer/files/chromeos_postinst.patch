@@ -1,0 +1,29 @@
+diff --git a/installer/chromeos_legacy.cc b/installer/chromeos_legacy.cc
+index 973342ad70..94e50444ac 100644
+--- a/installer/chromeos_legacy.cc
++++ b/installer/chromeos_legacy.cc
+@@ -135,6 +135,8 @@ bool RunLegacyUBootPostInstall(const InstallConfig& install_config) {
+   bool result = true;
+   LOG(INFO) << "Running LegacyUBootPostInstall.";
+ 
++  result &= CopyBootFile(install_config,
++                         "boot/boot.scr", "boot.scr");
+   result &= CopyBootFile(install_config,
+                          "boot/boot-" + install_config.slot + ".scr.uimg",
+                          "u-boot/boot.scr.uimg");
+diff --git a/installer/chromeos_postinst.cc b/installer/chromeos_postinst.cc
+index bf4fa0f1a6..454c3ae8e6 100644
+--- a/installer/chromeos_postinst.cc
++++ b/installer/chromeos_postinst.cc
+@@ -104,8 +104,9 @@ bool KernelConfigToBiosType(const string& kernel_config, BiosType* type) {
+   }
+ 
+   // No recognized bios type was found
+-  LOG(ERROR) << "No recognized cros_XXX bios option on kernel command line.";
+-  return false;
++  //LOG(ERROR) << "No recognized cros_XXX bios option on kernel command line.";
++  *type = kBiosTypeUBoot;
++  return true;
+ }
+ 
+ namespace {

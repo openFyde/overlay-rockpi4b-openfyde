@@ -1,0 +1,1 @@
+fydeos-default-chromedev-flags-0.0.1.ebuild

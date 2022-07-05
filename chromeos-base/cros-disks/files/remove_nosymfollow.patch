@@ -1,0 +1,20 @@
+diff --git a/platform.cc b/platform.cc
+index 8d19a45a66..e94698b39e 100644
+--- a/platform.cc
++++ b/platform.cc
+@@ -241,13 +241,14 @@ MountErrorType Platform::Mount(const std::string& source_path,
+   // TODO(b/152074038): Remove the string option once all devices have been
+   // upreved to a kernel that supports MS_NOSYMFOLLOW (currently 5.4+).
+   std::string mount_options = options;
++  /*
+   if ((flags & MS_NOSYMFOLLOW) == MS_NOSYMFOLLOW) {
+     if (!mount_options.empty()) {
+       mount_options += ",";
+     }
+     mount_options += "nosymfollow";
+   }
+-
++*/
+   error_t error = 0;
+   if (mount(source_path.c_str(), target_path.c_str(), filesystem_type.c_str(),
+             flags, mount_options.c_str()) != 0) {
