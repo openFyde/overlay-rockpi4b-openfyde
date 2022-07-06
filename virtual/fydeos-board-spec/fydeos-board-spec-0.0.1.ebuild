@@ -15,7 +15,7 @@ RDEPEND="
     chromeos-base/auto-expand-partition
     sys-apps/haveged
     virtual/fydemina
-    chromeos-base/chromeos-bsp-radxa-keyz
+    chromeos-base/chromeos-bsp-rockpi4b
 "
 
 #    chromeos-base/intel-microcode

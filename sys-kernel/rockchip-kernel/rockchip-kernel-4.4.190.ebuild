@@ -2,21 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-#CROS_WORKON_REPO="git@github.com:FydeOS-for-You-overlays"
 CROS_WORKON_REPO="git@github.com:damenly"
-#CROS_WORKON_COMMIT="d0b3e567d21ad25ec1a46de7e8148b34f4fc9ec3"
-#CROS_WORKON_COMMIT="64d3dc76c1604556e538532f5ea8882a3a124d24"
-
-#CROS_WORKON_COMMIT="5954dacc9fddea199afe863a738bbe6729360141"
 CROS_WORKON_COMMIT="b63ee55340165960e0f36aa2c167169b2c28579e"
-
-#CROS_WORKON_EGIT_BRANCH="keyz"
-#CROS_WORKON_EGIT_BRANCH="orig-keyz"
 CROS_WORKON_EGIT_BRANCH="new-keyz"
-
-#CROS_WORKON_EGIT_BRANCH="cros-v5.10"
-
-#CROS_WORKON_EGIT_BRANCH="cros-v5.15"
 
 CROS_WORKON_PROJECT="linux"
 CROS_WORKON_LOCALNAME="/kernel/rockchip-kernel"

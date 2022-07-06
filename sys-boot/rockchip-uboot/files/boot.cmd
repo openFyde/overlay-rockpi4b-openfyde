@@ -2,7 +2,7 @@
 # i2c dev 4
 # if i2c probe 62; then
   echo "Detected i2c4@62 charger circuit."
-  echo "It seems to be Radxa keyz."
+  echo "It seems to be a rockpi."
   setenv fdtfile rockchip/rk3399-rockpi4b.dtb
 #else
 #  echo "Did not detect i2c4@62 charger circuit."

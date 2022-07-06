@@ -11,4 +11,4 @@ SLOT="0"
 KEYWORDS="arm"
 IUSE=""
 
-RDEPEND="chromeos-base/chromeos-firmware-keyz"
+RDEPEND="chromeos-base/chromeos-firmware-rockpi4b"
