@@ -10,3 +10,6 @@ chromeos-base/cros-disks::chromiumos
 chromeos-base/cros-disks::openfyde-patches
 chromeos-base/chromeos-installer::chromiumos
 chromeos-base/chromeos-installer::openfyde-patches
+chromeos-base/chromeos-chrome::openfyde-patches
+media-libs/libv4l::chromiumos
+media-libs/libv4lplugins::chromiumos
