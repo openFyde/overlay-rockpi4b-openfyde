@@ -1,1 +1,0 @@
-KERNEL=="mali0", SUBSYSTEM=="misc", ACTION=="add", RUN+="/sbin/start ui"
