@@ -1,8 +1,0 @@
-net-wireless/bluez bt_deprecated_tools
-chromeos-base/chromeos-chrome chrome_media
-sys-apps/gptfdisk -ncurses
-sys-kernel/chromeos-kernel-5_4 clang lld arm boot_dts_device_tree llvm_ias
-sys-kernel/chromeos-kernel-4_4 clang lld arm boot_dts_device_tree llvm_ias
-sys-kernel/rockchip-kernel -clang -lld -arm boot_dts_device_tree -llvm_ias
-chromeos-base/cryptohome -direncription_allow_v2
-chromeos-base/chromeos-chrome goma_thinlto v4lplugin

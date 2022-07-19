@@ -15,7 +15,8 @@ RDEPEND="
     chromeos-base/auto-expand-partition
     sys-apps/haveged
     virtual/fydemina
-    chromeos-base/chromeos-bsp-rockpi4
+    chromeos-base/fydeos-power-daemon-go
+    chromeos-base/device-appid
 "
 
 DEPEND="${RDEPEND}"
