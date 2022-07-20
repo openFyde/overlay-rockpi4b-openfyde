@@ -17,6 +17,7 @@ RDEPEND="
     virtual/fydemina
     chromeos-base/fydeos-power-daemon-go
     chromeos-base/device-appid
+    chromeos-base/chromeos-bsp-rockpi4
 "
 
 DEPEND="${RDEPEND}"
