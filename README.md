@@ -18,10 +18,10 @@ This repository is the overlay for the `rockpi4b-openfyde` board, it's part of t
 
 This repository contains the following packages:
 
-| Packages                               | Description                                           | Reference                                                                                                                                      |
-|----------------------------------------|-------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
-| chromeos-base/device-appid             | Setup device appid                                    |                                                                                                                                                |
-| virtual/fydeos-board-spec              | Setup board dependency                                |                                                   
+| Packages                   | Description            | Reference |
+|----------------------------|------------------------|-----------|
+| chromeos-base/device-appid | Setup device appid     |           |
+| virtual/fydeos-board-spec  | Setup board dependency |           |
 
 
 <br>
