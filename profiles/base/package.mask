@@ -3,11 +3,7 @@ sys-kernel/chromeos-kernel-5_4::openfyde-patches
 sys-kernel/linux-firmware::openfyde-patches
 media-libs/minigbm::openfyde-patches
 chromeos-base/cros-disks::openfyde-patches
-chromeos-base/vm_host_tools::chromiumos
-chromeos-base/vm_host_tools::openfyde-patches
 x11-libs/libdrm::openfyde-patches
 chromeos-base/cros-disks::chromiumos
 chromeos-base/cros-disks::openfyde-patches
-chromeos-base/chromeos-installer::chromiumos
-chromeos-base/chromeos-installer::openfyde-patches
 chromeos-base/auto-expand-partition::openfyde
